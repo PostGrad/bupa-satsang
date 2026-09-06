@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [develop, main]
 
 jobs:
   verify:
@@ -22,4 +22,6 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test:unit
       - run: pnpm test:api
+      - run: pnpm --dir apps/client exec expo install --check
+      - run: pnpm --dir apps/client exec expo-doctor
       - run: pnpm exec nx run client:web-build

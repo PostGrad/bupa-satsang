@@ -10,7 +10,7 @@
 
 **Spec:** [Kitchen architecture](../specs/2026-09-06-kitchen-architecture.md), with [product decisions](../../planning/2026-09-05-kitchen-proposal.md) and [screens](../../planning/2026-09-06-kitchen-screens.md).
 
-**Status:** Reviewable build plan, 2026-09-06. No listed implementation command has been run. The workspace currently contains planning documents and the supplied workbook, not a scaffolded application. The architecture's explicitly proposed defaults remain proposals. This document provides the whole delivery sequence and detailed tasks for the first vertical slice; subsequent slices get their own detailed plans after foundation findings are incorporated.
+**Status:** Superseded for execution by [the detailed task-based plan](2026-09-06-kitchen-development-plan.md). Implementation paused at user request, 2026-09-06. The workspace contains planning documents, the supplied workbook and a partial application scaffold; task completion requires recorded verification evidence. The architecture's explicitly proposed defaults remain proposals. This document provides the whole delivery sequence and detailed tasks for the first vertical slice; subsequent slices get their own detailed plans after foundation findings are incorporated.
 
 ## Global constraints
 
@@ -194,7 +194,7 @@ Protocol constraints: `bill.create` uses `base.kind=absent`; existing updates us
 ```
 
 - [ ] Build a small shell with English/Gujarati selection and a health endpoint; these are scaffolding checks, not business-rule unit tests. Define root scripts `test:unit` (Vitest), `test:api` (Vitest integration config), `test:web` (Playwright), `typecheck`, and `lint`. Android scenarios use the Maestro CLI installed in the test environment.
-- [ ] Run `pnpm --dir apps/client exec expo install --check`, `pnpm --dir apps/client exec expo-doctor`, `pnpm exec nx run client:web-build`, `pnpm exec nx run client:android-build` and an HTTP request to `/health/live`. The Android check requires an SDK/JDK and a device/emulator. Record actual results; a missing SDK is not a passing build.
+- [ ] Run `pnpm --dir apps/client exec expo install --check`, `pnpm --dir apps/client exec expo-doctor`, `pnpm exec nx run client:web-build`, `pnpm exec nx run client:android-build` and an HTTP request to `/health/live`. Build the Android APK without a device using the installed SDK/JDK. The user will perform physical-device testing; do not download emulator images or create an emulator. Record build and on-device results separately; a missing SDK or pending device test is not a passing check.
 - [ ] Review and commit the compatible shell/configuration. Expected deliverable: both clients render BUPA-Satsang, switch language and build from a clean checkout.
 
 ## Task 2: Runtime contracts, exact amounts and permission vocabulary

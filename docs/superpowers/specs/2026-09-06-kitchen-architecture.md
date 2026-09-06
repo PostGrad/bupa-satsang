@@ -1,6 +1,6 @@
 # BUPA-Satsang Kitchen architecture
 
-Date: 2026-09-06. Status: architecture proposal for review. Product decisions come from the [kitchen specification](../../planning/2026-09-05-kitchen-proposal.md) and [screen journeys](../../planning/2026-09-06-kitchen-screens.md). Keycloak is the working authentication choice following the user's instruction to proceed with the presented option. No application code or production infrastructure has been created.
+Date: 2026-09-06. Status: agreed design with implementation paused; detailed planning requested. Product decisions come from the [kitchen specification](../../planning/2026-09-05-kitchen-proposal.md) and [screen journeys](../../planning/2026-09-06-kitchen-screens.md). Keycloak is the working authentication choice following the user's instruction to proceed with the presented option. A partial application scaffold exists; implementation and native compilation are paused at user request. No production infrastructure has been created.
 
 ## 1. Product boundaries
 
@@ -172,3 +172,11 @@ Back up both databases and necessary recovery configuration, encrypted and off-h
 Test real PostgreSQL constraints/transactions, two shoppers with different scopes, unauthorized API/export access, retry after lost acknowledgement, restart while offline, concurrent corrections and leftover creation in the same meal, repeated dishes across different meals, bulk purchases spanning meals, exact meal/common-cost reconciliation and allocation conflicts, expired/revoked sessions, account switching, storage failure and app upgrades with queued data. Reconcile a known event total and every permitted report view. Test English/Gujarati labels, long names, font scaling, numeric entry and touch/keyboard behavior on target devices.
 
 Measure a proposed pilot load of 20 active volunteers and a 50-device queued-sync burst; these are engineering test scenarios, not user-count guarantees. Adjust to observed pilot behavior. Do not commit a launch date until the maintainer's availability and Android distribution route are known. Neither a server purchase nor public deployment is performed by this specification.
+
+## Confirmed acceptance prerequisites (2026-09-06)
+
+The user will test Android on a physical device. Do not download emulator images or create an emulator for this project. Automated build checks can prepare a development APK without a connected device; physical-device persistence, restart, Gujarati rendering and authentication checks remain explicit acceptance items.
+
+No Google Cloud OAuth client exists yet. Prepare the Google/Keycloak integration and setup instructions, and test against an isolated local identity realm. Real Google sign-in acceptance remains pending the user’s OAuth configuration; a test-realm login does not establish Google-provider acceptance.
+
+The [detailed development pack](../plans/2026-09-06-kitchen-development-plan.md) records executable defaults and task boundaries for future model-assisted development. It supersedes the earlier coarse execution schedule, without authorizing compilation or deployment.

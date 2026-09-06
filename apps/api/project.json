@@ -21,7 +21,7 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "../..",
+        "cwd": ".",
         "command": "pnpm exec eslint apps/api"
       }
     }

@@ -1,14 +1,17 @@
 # BUPA-Satsang planning
 
-Updated 2026-09-06. This workspace currently contains specifications and the source workbook; application implementation has not started.
+Updated 2026-09-06. Implementation and native compilation are paused by user request; a detailed task-based development plan is ready for review. This workspace contains specifications, the source workbook and the application scaffold.
 
 ## Read first
+
+Start with the [detailed development plan for smaller models](superpowers/plans/2026-09-06-kitchen-development-plan.md): 51 task cards, contracts, fixtures, prompts and acceptance gates. This supersedes the older execution task sequence below.
+
 
 1. [Kitchen architecture](superpowers/specs/2026-09-06-kitchen-architecture.md): proposed stack, data model, permissions, offline behavior and hosting.
 2. [Delivery and foundation plan](superpowers/plans/2026-09-06-kitchen-delivery.md): full release sequence and detailed first-slice tasks.
 3. [Screen journeys](planning/2026-09-06-kitchen-screens.md): volunteer workflows and accepted screen choices.
 
-The architecture distinguishes confirmed product choices from proposed implementation defaults. The plan is reviewable work, not a claim that any build, test, migration or deployment has run.
+The architecture distinguishes confirmed product choices from proposed implementation defaults. Build and test results are recorded separately from the plan; the plan itself is not completion evidence.
 
 ## Current decisions
 
@@ -33,3 +36,8 @@ No inventory, files, advances, reimbursements, cashbook balances, payment tracki
 - [Authentication and hosting comparison](planning/2026-09-05-auth-options.md), retaining its dated price checks
 
 The supplied workbook remains unchanged. Historical cashbook fields describe past practice and do not reintroduce excluded features.
+
+## Development prerequisites
+
+- [Google OAuth setup preparation](development/google-oauth-setup.md): external credentials are not yet configured.
+- Android runtime acceptance will use the user’s physical device; do not download emulator images.
