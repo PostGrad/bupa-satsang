@@ -10,7 +10,7 @@
   "scripts": {
     "start:api": "pnpm exec nx run api:serve",
     "start:client": "pnpm exec nx run client:start",
-    "test:unit": "vitest run --exclude 'apps/api/test/**/*.test.ts'",
+    "test:unit": "vitest run --exclude 'apps/api/test/**/*.test.ts' --exclude 'apps/client/e2e/**/*.ts'",
     "test:api": "vitest run --config vitest.integration.config.ts",
     "test:web": "playwright test",
     "typecheck": "pnpm exec nx run-many -t typecheck --all",

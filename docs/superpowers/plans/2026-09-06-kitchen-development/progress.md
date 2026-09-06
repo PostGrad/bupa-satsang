@@ -4,7 +4,7 @@ Planning snapshot2026-09-06. No task is accepted. Preserve this file across mode
 
 | Task | Status | Commit | Evidence / blocker |
 | --- | --- | --- | --- |
-| 00 | Planned | — | Existing partial scaffold; not reviewed to completion |
+| 00 | Ready for review | — | Handoff: docs/development/handoffs/00.md; checks passed with noted sandbox escalations; review/commit pending |
 | 01 | Planned | — | Not started |
 | 02 | Planned | — | Not started |
 | 03 | Planned | — | Not started |
