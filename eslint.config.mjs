@@ -20,7 +20,7 @@ export default tseslint.config(
     }
   },
   {
-    files: ['apps/**/*.{ts,tsx}', 'packages/**/*.{ts,tsx}'],
+    files: ['apps/client/**/*.{ts,tsx}'],
     ignores: ['**/*.test.ts', '**/*.spec.ts', '**/test/**', '**/e2e/**'],
     rules: {
       'no-restricted-imports': [
@@ -28,7 +28,51 @@ export default tseslint.config(
         {
           patterns: [
             {
-              group: ['@bupa-satsang/test-support', '@bupa-satsang/test-support/*'],
+              group: [
+                '@nestjs/*',
+                '@bupa-satsang/test-support',
+                '@bupa-satsang/test-support/*',
+                '**/test-support',
+                '**/test-support/*',
+                '**/test-support/**',
+                '../api/*',
+                '../api/**',
+                '../../api/*',
+                '../../api/**',
+                '../../../api/*',
+                '../../../api/**',
+                'apps/api/*',
+                'apps/api/**',
+                '**/apps/api/*',
+                '**/apps/api/**'
+              ],
+              message: 'Client code must not import NestJS, API modules, or test fixtures.'
+            },
+            {
+              group: ['**/database', '**/database.*', '**/database/*', '**/database/**'],
+              message: 'Client and public packages must not import database modules.'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    files: ['apps/api/**/*.{ts,tsx}'],
+    ignores: ['**/*.test.ts', '**/*.spec.ts', '**/test/**', '**/e2e/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                '@bupa-satsang/test-support',
+                '@bupa-satsang/test-support/*',
+                '**/test-support',
+                '**/test-support/*',
+                '**/test-support/**'
+              ],
               message: 'Test-support fixtures are allowed only in test files and test directories.'
             }
           ]
@@ -38,19 +82,64 @@ export default tseslint.config(
   },
   {
     files: ['packages/{contracts,domain,local-store,sync,ui}/src/**/*.{ts,tsx}'],
-    ignores: ['**/*.test.ts', '**/*.spec.ts'],
     rules: {
       'no-restricted-imports': [
         'error',
         {
           patterns: [
             {
-              group: ['@nestjs/*', '@bupa-satsang/test-support', '@bupa-satsang/test-support/*'],
+              group: ['@nestjs/*'],
+              message: 'Public packages must not import NestJS modules.'
+            },
+            {
+              group: [
+                'apps/api/*',
+                'apps/api/**',
+                '**/apps/api/*',
+                '**/apps/api/**',
+                '**/database',
+                '**/database.*',
+                '**/database/*',
+                '**/database/**'
+              ],
+              message: 'Public packages must not import API modules or database modules.'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    files: ['packages/{contracts,domain,local-store,sync,ui}/src/**/*.{ts,tsx}'],
+    ignores: ['**/*.test.ts', '**/*.spec.ts', '**/test/**', '**/e2e/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                '@nestjs/*',
+                '@bupa-satsang/test-support',
+                '@bupa-satsang/test-support/*',
+                '**/test-support',
+                '**/test-support/*',
+                '**/test-support/**'
+              ],
               message: 'Public packages must not import NestJS or test fixture modules.'
             },
             {
-              group: ['apps/api/*', 'apps/api/**', '**/database', '**/database.*'],
-              message: 'Public packages must not import API database modules.'
+              group: [
+                'apps/api/*',
+                'apps/api/**',
+                '**/apps/api/*',
+                '**/apps/api/**',
+                '**/database',
+                '**/database.*',
+                '**/database/*',
+                '**/database/**'
+              ],
+              message: 'Public packages must not import API modules or database modules.'
             }
           ]
         }
