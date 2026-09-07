@@ -16,3 +16,4 @@ apps/client/android/
 apps/client/ios/
 Ravisabha Cashbook 2026.xlsx
 *.log
+.codegraph

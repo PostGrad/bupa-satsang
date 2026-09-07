@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUPA-Satsang Monorepo Map</title>
+    <link rel="stylesheet" href="../assets/course.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Reference</p>
+        <h1>BUPA-Satsang Monorepo Map</h1>
+        <p class="lede">A quick lookup for which file answers which monorepo question.</p>
+      </header>
+
+      <section class="map" aria-label="Monorepo map">
+        <div class="map-row">
+          <div><strong>Membership</strong><span>What belongs to the workspace?</span></div>
+          <div><code>pnpm-workspace.yaml</code></div>
+          <div><code>apps/*</code> and <code>packages/*</code></div>
+        </div>
+        <div class="map-row">
+          <div><strong>Orchestration</strong><span>What can Nx run?</span></div>
+          <div><code>nx.json</code> plus each <code>project.json</code></div>
+          <div><code>serve</code>, <code>start</code>, <code>typecheck</code>, <code>lint</code>, <code>web-build</code></div>
+        </div>
+        <div class="map-row">
+          <div><strong>Applications</strong><span>Runnable products</span></div>
+          <div><code>apps/api</code>, <code>apps/client</code></div>
+          <div>Nest API and Expo client</div>
+        </div>
+        <div class="map-row">
+          <div><strong>Packages</strong><span>Shared code</span></div>
+          <div><code>packages/ui</code>, <code>packages/test-support</code></div>
+          <div>i18n catalogs and test fixtures</div>
+        </div>
+        <div class="map-row">
+          <div><strong>Local imports</strong><span>App to package link</span></div>
+          <div><code>@bupa-satsang/ui</code> with <code>workspace:*</code></div>
+          <div>Client imports <code>@bupa-satsang/ui/i18n</code></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Command Compass</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Start API</h3>
+            <p><code>pnpm start:api</code> -> <code>nx run api:serve</code> -> <code>pnpm exec tsx src/main.ts</code> in <code>apps/api</code>.</p>
+          </div>
+          <div class="card">
+            <h3>Start Client</h3>
+            <p><code>pnpm start:client</code> -> <code>nx run client:start</code> -> <code>pnpm exec expo start</code> in <code>apps/client</code>.</p>
+          </div>
+          <div class="card">
+            <h3>Check All Types</h3>
+            <p><code>pnpm typecheck</code> -> <code>nx run-many -t typecheck --all</code>.</p>
+          </div>
+          <div class="card">
+            <h3>Lint All Projects</h3>
+            <p><code>pnpm lint</code> -> <code>nx run-many -t lint --all</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Diagnostic Rule</h2>
+        <p class="callout">Ask one question first: am I changing membership, task behavior, dependency visibility, or source code? Membership lives in <code>pnpm-workspace.yaml</code>. Task behavior lives in <code>nx.json</code> or <code>project.json</code>. Dependency visibility lives in each package's <code>package.json</code>. Source code lives under that app or package's <code>src</code>, <code>app</code>, <code>test</code>, or <code>e2e</code> folder.</p>
+      </section>
+    </main>
+  </body>
+</html>

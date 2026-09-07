@@ -1,0 +1,9 @@
+{
+  "name": "@bupa-satsang/test-support",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./fixtures": "./src/fixtures.ts"
+  }
+}

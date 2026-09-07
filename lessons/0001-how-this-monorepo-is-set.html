@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How This Monorepo Is Set</title>
+    <link rel="stylesheet" href="../assets/course.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Lesson 0001</p>
+        <h1>How This Monorepo Is Set</h1>
+        <p class="lede">Your win: after this lesson, you should be able to answer "which file owns this?" for most changes in the repo.</p>
+      </header>
+
+      <section>
+        <h2>The Core Idea</h2>
+        <p>This repo uses two layers together: <strong>pnpm decides which folders are workspace packages</strong>, and <strong>Nx decides which projects have runnable tasks</strong>. The root <code>package.json</code> is the front desk: it exposes friendly scripts such as <code>start:api</code>, <code>start:client</code>, <code>typecheck</code>, and <code>lint</code>.</p>
+        <p class="small">Primary sources: <a href="https://pnpm.io/workspaces">pnpm Workspace docs</a>, <a href="https://nx.dev/docs/reference/project-configuration">Nx Project Configuration</a>, and <a href="https://nx.dev/docs/reference/nx-json">Nx nx.json reference</a>.</p>
+      </section>
+
+      <section>
+        <h2>The Three-Layer Map</h2>
+        <div class="map" aria-label="Three-layer monorepo map">
+          <div class="map-row">
+            <div><strong>Layer 1</strong><span>Package membership</span></div>
+            <div><code>pnpm-workspace.yaml</code></div>
+            <div>Includes <code>apps/*</code> and <code>packages/*</code>.</div>
+          </div>
+          <div class="map-row">
+            <div><strong>Layer 2</strong><span>Task orchestration</span></div>
+            <div><code>nx.json</code> and <code>project.json</code></div>
+            <div>Nx runs named targets and caches selected tasks.</div>
+          </div>
+          <div class="map-row">
+            <div><strong>Layer 3</strong><span>Runtime/package behavior</span></div>
+            <div>Each app/package <code>package.json</code></div>
+            <div>Declares dependencies, exports, package names, and entry points.</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>What Exists Here</h2>
+        <div class="grid">
+          <div class="card">
+            <h3><code>apps/api</code></h3>
+            <p>Nest application. Its Nx project is named <code>api</code>. Its <code>serve</code> target runs <code>pnpm exec tsx src/main.ts</code> from inside <code>apps/api</code>.</p>
+          </div>
+          <div class="card">
+            <h3><code>apps/client</code></h3>
+            <p>Expo application. Its Nx project is named <code>client</code>. It has targets for <code>start</code>, <code>web-build</code>, <code>android-build</code>, <code>android-run</code>, <code>typecheck</code>, and <code>lint</code>.</p>
+          </div>
+          <div class="card">
+            <h3><code>packages/ui</code></h3>
+            <p>Shared UI-adjacent package. It exports <code>./i18n</code>, and the client imports <code>@bupa-satsang/ui/i18n</code>.</p>
+          </div>
+          <div class="card">
+            <h3><code>packages/test-support</code></h3>
+            <p>Shared testing package. It exports <code>./fixtures</code> and has its own Nx <code>typecheck</code> and <code>lint</code> targets.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>The Most Important Dependency Link</h2>
+        <p>The client depends on the UI package like this:</p>
+        <pre><code>"@bupa-satsang/ui": "workspace:*"</code></pre>
+        <p>In pnpm, the <code>workspace:</code> protocol means "resolve this dependency from this local workspace." That is why the client can import <code>@bupa-satsang/ui/i18n</code> without publishing <code>@bupa-satsang/ui</code> to a registry.</p>
+      </section>
+
+      <section>
+        <h2>How To Locate Ownership</h2>
+        <div class="callout success">
+          <p><strong>Use this checklist:</strong> If you add a folder to the repo, check <code>pnpm-workspace.yaml</code>. If you add or change a runnable command, check the relevant <code>project.json</code>. If one package needs to import another, check both packages' <code>package.json</code>. If behavior changed inside an app, start in that app's source root.</p>
+        </div>
+        <p>For exploration, <a href="https://nx.dev/docs/reference/nx-commands#nx-show"><code>nx show projects</code></a> lists projects. In this repo it returned <code>test-support</code>, <code>@bupa-satsang/ui</code>, <code>client</code>, and <code>api</code>. In the Codex sandbox it also reported a Unix socket permission warning, but still printed the project list.</p>
+      </section>
+
+      <section>
+        <h2>Retrieval Practice</h2>
+        <p class="small">Answer from memory first. The immediate feedback is here to make the map stick.</p>
+        <div class="quiz">
+          <div class="question">
+            <p>Which tool decides that <code>apps/*</code> and <code>packages/*</code> belong to the workspace?</p>
+            <div class="answers">
+              <button data-correct="true">pnpm</button>
+              <button data-correct="false">Nx</button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+          </div>
+          <div class="question">
+            <p>Which folder pattern is included by the workspace file?</p>
+            <div class="answers">
+              <button data-correct="true">apps/*</button>
+              <button data-correct="false">docs/*</button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+          </div>
+          <div class="question">
+            <p>Where would you first look to change the client <code>start</code> target?</p>
+            <div class="answers">
+              <button data-correct="true">project.json</button>
+              <button data-correct="false">package.json</button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Next Reading</h2>
+        <p>Read the <a href="https://nx.dev/docs/getting-started/tutorials/understanding-your-workspace">Nx guide to understanding your workspace</a>, then run <code>pnpm exec nx show project client --json</code> when you want the resolved view of the client project.</p>
+        <p>Keep the companion reference open: <a href="../reference/0001-monorepo-map.html">BUPA-Satsang Monorepo Map</a>.</p>
+      </section>
+
+      <footer>
+        <p>Ask Codex follow-up questions when a file's ownership is unclear. Good prompts: "which layer owns this change?" or "what should I run after editing this package?"</p>
+      </footer>
+    </main>
+
+    <script>
+      document.querySelectorAll(".question").forEach((question) => {
+        const feedback = question.querySelector(".feedback");
+        question.querySelectorAll("button").forEach((button) => {
+          button.addEventListener("click", () => {
+            question.querySelectorAll("button").forEach((item) => {
+              item.classList.remove("correct", "incorrect");
+            });
+            const correct = button.dataset.correct === "true";
+            button.classList.add(correct ? "correct" : "incorrect");
+            feedback.textContent = correct
+              ? "Correct. Keep that ownership rule close."
+              : "Not quite. Re-read the map above, then try again.";
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
