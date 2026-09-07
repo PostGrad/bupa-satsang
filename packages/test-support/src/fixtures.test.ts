@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { bill160, createBill, ids } from './fixtures.js';
+import { bill160, createBill, eventFixture, ids, mealFixture } from './fixtures.js';
 
 describe('fixture builders', () => {
   it('exports the deterministic F1 ids', () => {
@@ -51,5 +51,23 @@ describe('fixture builders', () => {
 
     expect(mutation.payload.lines[0]?.requirementIds).toEqual([ids.reqLunch]);
     expect(mutation.payload.lines[0]?.allocations).toEqual([{ mealId: ids.lunch, amount: '100.00' }]);
+  });
+
+  it('builds F1 event and meal fixtures with independent copies', () => {
+    const event = eventFixture();
+    const meal = mealFixture();
+    const overriddenMeal = mealFixture({ id: ids.dinner, kind: 'dinner', label: 'Dinner', servingTime: '19:00' });
+
+    event.name = 'Changed';
+
+    expect(eventFixture().name).toBe('Anand two-day test');
+    expect(meal).toMatchObject({
+      id: ids.lunch,
+      eventId: ids.event,
+      servesOn: '2026-09-12',
+      servingTime: '12:00',
+      plannedHeadcount: 250
+    });
+    expect(overriddenMeal).toMatchObject({ id: ids.dinner, kind: 'dinner', label: 'Dinner', servingTime: '19:00' });
   });
 });

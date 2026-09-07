@@ -30,6 +30,29 @@ interface BillPayload {
   lines: BillLine[];
 }
 
+interface EventDetails {
+  id: Id;
+  communityId: Id;
+  name: string;
+  venue: string | null;
+  startDate: string;
+  endDate: string;
+  timeZone: string;
+  version: number;
+}
+
+interface Meal {
+  id: Id;
+  eventId: Id;
+  version: number;
+  servesOn: string;
+  servingTime: string | null;
+  kind: string;
+  label: string;
+  plannedHeadcount: number | null;
+  status: 'planned' | 'completed' | 'cancelled';
+}
+
 type Base = { kind: 'absent' } | { kind: 'version'; value: number } | { kind: 'mutation'; mutationId: Id };
 
 interface BillMutation {
@@ -97,6 +120,35 @@ export function createBill(overrides: Partial<BillMutation> = {}): BillMutation 
     kind: 'bill.create',
     base: { kind: 'absent' },
     payload: bill160(),
+    ...overrides
+  });
+}
+
+export function eventFixture(overrides: Partial<EventDetails> = {}): EventDetails {
+  return clone({
+    id: ids.event,
+    communityId: ids.community,
+    name: 'Anand two-day test',
+    venue: null,
+    startDate: '2026-09-12',
+    endDate: '2026-09-13',
+    timeZone: 'Asia/Kolkata',
+    version: 1,
+    ...overrides
+  });
+}
+
+export function mealFixture(overrides: Partial<Meal> = {}): Meal {
+  return clone({
+    id: ids.lunch,
+    eventId: ids.event,
+    version: 1,
+    servesOn: '2026-09-12',
+    servingTime: '12:00',
+    kind: 'lunch',
+    label: 'Lunch',
+    plannedHeadcount: 250,
+    status: 'planned',
     ...overrides
   });
 }
