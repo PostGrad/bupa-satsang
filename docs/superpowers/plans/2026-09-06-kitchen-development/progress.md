@@ -5,7 +5,7 @@ Planning snapshot2026-09-06. No task is accepted. Preserve this file across mode
 | Task | Status | Commit | Evidence / blocker |
 | --- | --- | --- | --- |
 | 00 | Accepted | 0438c4c | Handoff: docs/development/handoffs/00.md; reviewer PASS, checks passed with noted sandbox escalations |
-| 01 | Ready for review | — | Handoff: docs/development/handoffs/01.md; checks passed with noted sandbox install/Nx warnings; review/commit pending |
+| 01 | Accepted | 71a36a8 | Handoff: docs/development/handoffs/01.md; reviewer PASS after lint-boundary fixes; checks passed with noted sandbox install/Nx warnings |
 | 02 | Planned | — | Not started |
 | 03 | Planned | — | Not started |
 | 04 | Planned | — | Not started |
