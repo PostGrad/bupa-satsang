@@ -1,0 +1,13 @@
+{
+  "name": "@bupa-satsang/domain",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./money": "./src/money.ts",
+    "./quantity": "./src/quantity.ts"
+  },
+  "devDependencies": {
+    "@bupa-satsang/test-support": "workspace:*"
+  }
+}
